@@ -34,6 +34,12 @@
      margin: 0.2em 0;
  }
  
+ ul.virtual-keyboard li:active {
+     -webkit-box-shadow: none;
+     -moz-box-shadow: none;
+     box-shadow: none;
+ }
+ 
  ul.virtual-keyboard:after {
       content: "";
       position: absolute;
