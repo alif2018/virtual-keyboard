@@ -21,6 +21,21 @@
      margin-bottom: 0;
      margin-top: 8px;
 }
+
+.virtual-keyboard-input-below,
+.virtual-keyboard-input-above {
+    position: relative;
+    overflow: visible;
+}
+
+.virtual-keyboard-input-below ul.virtual-keyboard,
+.virtual-keyboard-input-above ul.virtual-keyboard {
+    position: absolute;
+}
+
+.virtual-keyboard-input-above ul.virtual-keyboard {
+    bottom: 110%;
+}
  
  ul.virtual-keyboard li {
      display: inline-block;
@@ -51,4 +66,26 @@
       top: -20px;
       left: 10px;      
  }
+
+ .virtual-keyboard-input-above ul.virtual-keyboard:after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-width: 0;
+      border-style: none;      
+ }
+ 
+ .virtual-keyboard-input-above ul.virtual-keyboard:before {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-width: 10px;
+      border-style: solid;
+      border-color: #BBB transparent  transparent transparent;
+      bottom: -20px;
+      left: 10px;  
+ }
+
 
