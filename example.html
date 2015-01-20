@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Virtual Keyboard Example</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            html {
+                width: 100%;
+                height: 100%;
+                -webkit-box-sizing: border-box; 
+                -moz-box-sizing: border-box;   
+                box-sizing: border-box;  
+            }
+            body {
+                width: 100%;
+                /* get some scrollbars so the effect of fixed vs. above/below can be shown.*/
+                height: 100%;
+                margin: 0 0 0 0;
+            }
+            * { 
+                -webkit-box-sizing: border-box; 
+                -moz-box-sizing: border-box;   
+                box-sizing: border-box;
+            }
+            #exampleAbove {
+                background-color: lightsteelblue;
+                width: 30%;
+                height: 10em;
+            }
+            #exampleSpaceAbove {
+                width: 30%;
+                height: 2.5em;
+                /* bg pattern */
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAADklEQVQImWNgQAVpZHAANBABmbxk9n0AAAAASUVORK5CYII=) repeat;
+            }
+        </style>
+        <link rel="stylesheet" type="text/css" href="src/virtual-keyboard.css"/>
+        <!--[if lt IE 9]>
+        <!-- These browsers + IE9 don't support CORS for JSON like the newer ones! JSONP needs to be used. -->
+        <script src="lib/jquery-1.11.1.js"></script>
+        <![endif]-->
+        <!--[if gte IE 9]><!-->
+        <script src="lib/jquery-2.1.1.js"></script>
+        <!--<![endif]-->
+        <!--<script src="lib/jquery-1.8.3.min.js"></script>-->        
+        <script type="text/javascript" src="lib/URI.js"></script>
+        <script type="text/javascript" src="lib/jquery.selection.js"></script>
+        <script type="text/javascript" src="src/params.js"></script>
+        <script type="text/javascript" src="src/virtual-keyboard.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+            VirtualKeyboard.keys = {
+               "deutsch": ["ä", "ö", "ü", "ß", "Ä", "Ö", "Ü"]
+            };
+            VirtualKeyboard.attachKeyboards();
+            });
+        </script>        
+    </head>
+    <body>
+        <div>
+            <div id="exampleSpaceAbove">Abviously you need some space here to display a keyboard above the text control.</div>
+            <form id="exampleAbove" class="virtual-keyboard-input-above">
+                <span class="virtual-keyboard-input-combo">
+                    <input name="query" type="text" size="18" class="virtual-keyboard-input" id="sth-unique" data-context="deutsch"/>
+                    <input type="checkbox" value="unused" class="virtual-keyboard-toggle" id="someid3" checked="checked"/>
+                    <label for="someid3" class="virtual-keyboard-first-three">Replaced by the first three characters of the virtual keyboard.</label>
+                </span>                
+                <p>Just click on the following text control. The toggle button needs to be pressed.
+                   ESC key closes the keyboard. If the browser shows suggestions they will close first
+                   if you press ESC.
+                </p>
+            </form>
+        </div>
+    </body>
+</html>
