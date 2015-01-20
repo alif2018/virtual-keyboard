@@ -226,7 +226,7 @@ describe("Virtual-Keyboard tests:", function() {
                     VirtualKeyboard.attachKeyboards();
                     $('#sth-unique').val(this.testVal);
                 });
-                xit("should insert the character at the current position", function() {
+                it("should insert the character at the current position", function() {
                     // caret is not at the end in FF or IE!
                     // for e.g. chrome:
                     if (navigator.userAgent.indexOf("Chrome") > 0) {
