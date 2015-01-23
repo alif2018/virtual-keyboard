@@ -89,7 +89,37 @@ describe("Virtual-Keyboard tests:", function() {
                 $(".virtual-keyboard-input").attr('id', randomId);
                 VirtualKeyboard.attachKeyboards();
                 expect($(".virtual-keyboard")).toBeInDOM();
-                expect($(".virtual-keyboard")).toHaveData('linked_input', randomId)
+                expect($(".virtual-keyboard")).toHaveData('linked_input', randomId);
+            });
+            it("should display the keyboard if the toggle is enabled and the input is focused", function() {
+                var randomId = SpecHelper.generateUUID();
+                $(".virtual-keyboard-input").attr('id', randomId);
+                VirtualKeyboard.attachKeyboards();                
+                expect($(".virtual-keyboard")).toBeInDOM();
+                expect($(".virtual-keyboard").css("display")).toEqual("none");
+                $("#" + randomId + " ~ .virtual-keyboard-toggle").attr("checked", true);
+                $("#" + randomId).focus();
+                // Not working in netbeans/chrome debugger, never mind.
+                expect($(".virtual-keyboard")).toBeVisible();
+            });
+            it("should hide the display if ESC key is pressed", function(){
+                var randomId = SpecHelper.generateUUID();
+                $(".virtual-keyboard-input").attr('id', randomId);
+                VirtualKeyboard.attachKeyboards();                
+                expect($(".virtual-keyboard")).toBeInDOM();
+                expect($(".virtual-keyboard").css("display")).toEqual("none");
+                $("#" + randomId + " ~ .virtual-keyboard-toggle").attr("checked", true);
+                $("#" + randomId).focus();
+                // Not working in netbeans/chrome debugger, never mind.
+                expect($(".virtual-keyboard")).toBeVisible();
+                var downEvent = $.Event("keydown");
+                var ESCAPE = 27;
+                downEvent.which = ESCAPE;
+                $(document.activeElement).trigger(downEvent);
+                expect($(".virtual-keyboard")).toBeHidden();
+            });
+            it("should replace the text of the label with the first three characters of the virtual keyboard", function() {
+                
             });
             it("should not add keyboards to inputs that don't provide context data", function() {
                 $(".virtual-keyboard-input#sth-unique").data('context', '');
@@ -148,7 +178,7 @@ describe("Virtual-Keyboard tests:", function() {
                 expect($(".virtual-keyboard").length).toEqual(4);
                 $(".virtual-keyboard-input").each(function(unused, element) {
                     var id = $(element).attr("id");
-                    expect($(".virtual-keyboard-input#" + id + "+.virtual-keyboard")).toHaveData('linked_input', id);
+                    expect($(".virtual-keyboard-input#" + id + "~.virtual-keyboard")).toHaveData('linked_input', id);
                 });
             });
             it("should attach the keyboard according to the context context attribute", function(){
@@ -220,7 +250,7 @@ describe("Virtual-Keyboard tests:", function() {
                 });
                 it("should replace the selection with the clicked character", function() {
                     $('#sth-unique').selection('setPos', {start: this.insertPoint - 1, end: this.insertPoint + 1});
-                    var keyboard = $('#sth-unique + .virtual-keyboard');
+                    var keyboard = $('#sth-unique ~ .virtual-keyboard');
                     this.testStart = this.testStart.slice(0, -1);
                     var testData = this;
                     $(keyboard).children().each(function(unused, element) {
