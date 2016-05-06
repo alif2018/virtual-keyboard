@@ -73,6 +73,9 @@
         } else {
             input.selection('replace', {text: key.text(), caret: 'end'});
         }
+		if (input.hasClass('ui-autocomplete-input')) {
+			input.autocomplete("search");
+		}
     };
     
     var hideKeyboardOnESC = function(e) {
@@ -94,6 +97,8 @@
         var defaultContext = defaultContext;
         inputs.each(function(unused, element) {
             var myInput = $(element);
+            var toggleCb = myInput.nextAll("input[type='checkbox']");
+            var toggleLabel = toggleCb.nextAll("label");
             //sanity checks
             var localContext = myInput.data("context");
             if ((localContext === undefined || localContext === '') && defaultContext !== undefined) {
@@ -107,8 +112,11 @@
                 else
                     return;
             }
-            if (localContext === undefined || module.keys[localContext] === undefined)
-                return;
+            if (localContext === undefined || module.keys[localContext] === undefined) {
+                toggleCb.hide();
+                toggleLabel.hide();
+                return;                
+            }
             //create keyboard
             var virtualKeyboard = module.virtualKeyboardProto.clone();
             // data() stores in javascript not in DOM
@@ -117,8 +125,9 @@
             virtualKeyboardKeyProto.removeClass("key-prototype");
             virtualKeyboardKeyProto.on("click", keyClicked);
             var insertAfterElement = myInput;
-            var toggleLabel = myInput.nextAll("label");
             if (toggleLabel.length === 1) {
+                toggleCb.show();
+                toggleLabel.show();
                 insertAfterElement = toggleLabel;
                 if (toggleLabel.hasClass("virtual-keyboard-first-three"))
                    toggleLabel.text(module.keys[localContext][0] + module.keys[localContext][1] + module.keys[localContext][2]);
