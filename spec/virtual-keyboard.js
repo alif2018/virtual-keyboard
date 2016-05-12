@@ -2,7 +2,8 @@ describe("Virtual-Keyboard tests:", function() {
     beforeEach(function(){
         VirtualKeyboard.keys = {
             "arz_eng_006":["ʔ","ā","ḅ","ʕ","ḍ","ḏ","ē","ġ","ǧ","ḥ","ī","ᴵ","ḷ","ṃ","ō","ṛ","ṣ","š","ṭ","ṯ","ū","ẓ","ž"],
-            "mecmua":["ʾ","ā","ä","s̱","ç","ḥ","ḫ","ẕ"]
+            "mecmua":["ʾ","ā","ä","s̱","ç","ḥ","ḫ","ẕ"],
+            "empty":[]
         }; //map
     });
     
@@ -128,6 +129,11 @@ describe("Virtual-Keyboard tests:", function() {
             });
             it("should not add keyboards to inputs that provide unknown context data", function() {
                 $(".virtual-keyboard-input#sth-unique").data('context', 'fasel');
+                VirtualKeyboard.attachKeyboards();
+                expect($(".virtual-keyboard")).not.toExist();
+            });
+            it("should not add keyboards to inputs where context data is empty", function() {
+                $(".virtual-keyboard-input#sth-unique").data('context', 'empty');
                 VirtualKeyboard.attachKeyboards();
                 expect($(".virtual-keyboard")).not.toExist();
             });
