@@ -1,0 +1,22 @@
+{
+  "name": "virtual-keyboard",
+  "version": "1.0.0",
+  "description": "An additional virtual keyboard for special non latin characters",
+  "main": "src/virtual-keyboard.js",
+  "scripts": {
+    "test": "phantomjs phantomjs-test-runner.js SpecRunner.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simar0at/virtual-keyboard.git"
+  },
+  "author": "Omar Siam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/simar0at/virtual-keyboard/issues"
+  },
+  "homepage": "https://github.com/simar0at/virtual-keyboard#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
