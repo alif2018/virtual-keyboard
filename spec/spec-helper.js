@@ -79,7 +79,7 @@
                         if (module.fakeResponses.hasOwnProperty(query['x-context'])) {
                                 xhr.respond(200,
                                         {"Content-Type": "application/json"},
-                                module.fakeResponses[query['x-context']]);
+                                        module.fakeResponses[query['x-context']]);
                                 return;
                             }
                     }

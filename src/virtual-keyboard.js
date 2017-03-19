@@ -68,7 +68,7 @@
         if (input.val() === '') {
             var text = key.text();
             input.val(text);
-            //FF and IE _do not_ position the caret at the end of the text set!
+            //IE and Edge _do not_ position the caret at the end of the text set!
             input.selection('setPos', {start: text.length, end: text.length});
         } else {
             input.selection('replace', {text: key.text(), caret: 'end'});

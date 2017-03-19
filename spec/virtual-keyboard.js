@@ -36,6 +36,7 @@ describe("Virtual-Keyboard tests:", function() {
         beforeEach(function(done) {
             jasmine.addMatchers(SpecHelper.matchers);
             SpecHelper.setUpFakeXHR();
+            VirtualKeyboard.keys = {};
 // fails to cleanly uninstall.
 //        jasmine.Ajax.withMock(function() {
             VirtualKeyboard.fetchKeys("http://localhost/corpus_shell/modules/fcs-aggregator/switch.php?version=1.2&operation=explain&x-context=arz_eng_006&x-format=json&x-dataview=metadata",
@@ -233,15 +234,16 @@ describe("Virtual-Keyboard tests:", function() {
                     $('#sth-unique').val(this.testVal);
                 });
                 it("should insert the character at the current position", function() {
-                    // caret is not at the end in FF or IE!
-                    // for e.g. chrome:
-                    if (navigator.userAgent.indexOf("Chrome") > 0) {
-                        expect($('#sth-unique').selection('getPos').start).toEqual(this.testVal.length);
-                        expect($('#sth-unique').selection('getPos').end).toEqual(this.testVal.length);
-                    } else {
-                    // for FF, IE, ??
+                    // caret is not at the end in IE!
+                    if ((navigator.userAgent.indexOf("Trident") > 0) ||
+                        (navigator.userAgent.indexOf("Edge") > 0)) {
                         expect($('#sth-unique').selection('getPos').start).toEqual(0);                        
                         expect($('#sth-unique').selection('getPos').end).toEqual(0);
+                    } else 
+                    // for e.g. Chrome, FF, etc.:
+                    {
+                        expect($('#sth-unique').selection('getPos').start).toEqual(this.testVal.length);
+                        expect($('#sth-unique').selection('getPos').end).toEqual(this.testVal.length);
                     }
                     $('#sth-unique').selection('setPos', {start: this.insertPoint, end: this.insertPoint});
                     var keyboard = $('#sth-unique + .virtual-keyboard');
